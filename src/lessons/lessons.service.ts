@@ -5,12 +5,15 @@ import { Lesson } from './entities/lesson.entity';
 import { Repository } from 'typeorm';
 import { CreateEvaluationResponseDto } from './dto/create-evaluation.response.dto';
 import { GetLessonsResponseDto } from './dto/get-lessons.response.dto';
+import { Evaluation } from 'src/evaluations/entities/evaluation.entity';
 
 @Injectable()
 export class LessonsService {
     constructor(
         @InjectRepository(Lesson)
         private readonly lessonsRepository: Repository<Lesson>,
+        @InjectRepository(Evaluation)
+        private readonly evaluationsRepository: Repository<Evaluation>,
     ) {}
 
     public async createLesson({ name, code }: { name: string; code: string }): Promise<CreateLessonResponseDto> {
@@ -28,7 +31,7 @@ export class LessonsService {
         score: number;
         lessonId: number;
     }): Promise<CreateEvaluationResponseDto> {
-        //TODO: evaluation module
+        //TODO evaluation
         return;
     }
 
