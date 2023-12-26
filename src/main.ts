@@ -6,8 +6,10 @@ import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
+
     app.setGlobalPrefix('api');
     app.enableCors();
+    app.useGlobalPipes(new ValidationPipe());
 
     const docs = new DocumentBuilder()
         .setTitle('Api documentation')
@@ -19,8 +21,6 @@ async function bootstrap() {
 
     SwaggerModule.setup('api/docs', app, document);
 
-    app.useGlobalPipes(new ValidationPipe());
-
     const configService = app.get(ConfigService);
 
     const port = configService.get<string>('APP_PORT');
@@ -30,4 +30,5 @@ async function bootstrap() {
 
     Logger.log(`Server is listening on url ${host}:${port}`);
 }
+
 bootstrap();
