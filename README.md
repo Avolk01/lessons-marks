@@ -14,3 +14,10 @@
 
 5. Start server
    npm run start:dev
+
+---
+
+Wip:
+
+1. Миграции
+2. Auth module

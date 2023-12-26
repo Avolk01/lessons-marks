@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post } from '@nestjs/common';
+import { Body, Controller, HttpStatus, Param, Post, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { EApiTags } from 'src/utils/types/api-tags.enum';
 import { CreateLessonInputDto } from './dto/create-lesson.input.dto';
@@ -7,6 +7,7 @@ import { CreateLessonResponseDto } from './dto/create-lesson.response.dto';
 import { LessonsService } from './lessons.service';
 import { CreateEvaluationResponseDto } from './dto/create-evaluation.response.dto';
 import { CreateEvaluationInputDto } from './dto/create-evaluation.input.dto';
+import { GetLessonsResponseDto } from './dto/get-lessons.response.dto';
 
 @Controller(ERoutes.LESSONS)
 @ApiTags(EApiTags.LESSONS)
@@ -14,7 +15,7 @@ export class LessonsController {
     constructor(private readonly lessonsService: LessonsService) {}
 
     @Post()
-    @ApiOkResponse({ type: CreateLessonResponseDto })
+    @ApiOkResponse({ type: CreateLessonResponseDto, status: HttpStatus.CREATED })
     async createLesson(@Body() dto: CreateLessonInputDto): Promise<CreateLessonResponseDto> {
         return await this.lessonsService.createLesson(dto);
     }
@@ -23,5 +24,11 @@ export class LessonsController {
     @ApiOkResponse({ type: CreateEvaluationResponseDto })
     async createEvaluation(@Body() dto: CreateEvaluationInputDto, @Param('id') id: number): Promise<CreateEvaluationResponseDto> {
         return await this.lessonsService.createEvaluation({ score: +dto.score, userId: +dto.user_id, lessonId: id });
+    }
+
+    @ApiOkResponse({ type: GetLessonsResponseDto, isArray: true, status: HttpStatus.OK })
+    @Get()
+    async getAllUsers(): Promise<GetLessonsResponseDto[]> {
+        return await this.lessonsService.getAllLessons();
     }
 }

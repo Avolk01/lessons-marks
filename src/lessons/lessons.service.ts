@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Lesson } from './entities/lesson.entity';
 import { Repository } from 'typeorm';
 import { CreateEvaluationResponseDto } from './dto/create-evaluation.response.dto';
+import { GetLessonsResponseDto } from './dto/get-lessons.response.dto';
 
 @Injectable()
 export class LessonsService {
@@ -29,5 +30,9 @@ export class LessonsService {
     }): Promise<CreateEvaluationResponseDto> {
         //TODO: evaluation module
         return;
+    }
+
+    public async getAllLessons(): Promise<GetLessonsResponseDto[]> {
+        return this.lessonsRepository.find();
     }
 }

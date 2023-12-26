@@ -1,5 +1,5 @@
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumberString, IsString, Length, Max } from 'class-validator';
+import { IsNotEmpty, IsNumberString } from 'class-validator';
 import { EApiTags } from 'src/utils/types/api-tags.enum';
 
 @ApiTags(EApiTags.LESSONS)
