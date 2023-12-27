@@ -5,7 +5,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LessonsModule } from './lessons/lessons.module';
 import { UsersModule } from './users/users.module';
-import { EvaluationsService } from './evaluations/evaluations.service';
 import { EvaluationsModule } from './evaluations/evaluations.module';
 
 @Module({
@@ -33,6 +32,6 @@ import { EvaluationsModule } from './evaluations/evaluations.module';
         EvaluationsModule,
     ],
     controllers: [AppController],
-    providers: [AppService, EvaluationsService],
+    providers: [AppService],
 })
 export class AppModule {}

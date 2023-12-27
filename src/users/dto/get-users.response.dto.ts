@@ -3,8 +3,8 @@ import { EApiTags } from 'src/utils/types/api-tags.enum';
 
 @ApiTags(EApiTags.USERS)
 export class GetUsersResponseDto {
-    @ApiProperty({ description: `user's id`, example: 1 })
-    id: number;
+    @ApiProperty({ description: `user's id`, example: `1` })
+    id: string;
 
     @ApiProperty({ description: `user's name`, example: `Джонни`, minLength: 1, maxLength: 100 })
     name: string;

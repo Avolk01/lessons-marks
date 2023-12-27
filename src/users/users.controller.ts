@@ -15,12 +15,18 @@ export class UsersController {
     @ApiOkResponse({ type: GetUsersResponseDto, isArray: true, status: HttpStatus.OK })
     @Get(ERoutes.GET_USERS)
     async getAllUsers(): Promise<GetUsersResponseDto[]> {
-        return await this.usersService.getAllUsers();
+        const users = await this.usersService.getAllUsers();
+
+        return users.map((user) => {
+            return { ...user, id: String(user.id) };
+        });
     }
 
     @ApiOkResponse({ type: CreateUserResponseDto, status: HttpStatus.CREATED })
     @Post(ERoutes.CREATE_USER)
     async createUser(@Body() dto: CreateUserInputDto): Promise<CreateUserResponseDto> {
-        return await this.usersService.createUser(dto);
+        const user = await this.usersService.createUser(dto);
+
+        return { ...user, id: String(user.id) };
     }
 }
