@@ -12,7 +12,10 @@
 4. Start docker container
    docker compose up -d
 
-5. Start server
+5. Run migrations
+   npm run migration:run
+
+6. Start server
    npm run start:dev
 
 ---
@@ -25,4 +28,3 @@
 4. Авторизированный пользователь является администратором (имеет доступ ко всем запросам)
 5. Добавлены отдельные контроллеры с авторизацией
 6. Добавлены миграции
-
