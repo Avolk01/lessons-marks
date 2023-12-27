@@ -17,18 +17,29 @@ export class LessonsController {
     @Post()
     @ApiOkResponse({ type: CreateLessonResponseDto, status: HttpStatus.CREATED })
     async createLesson(@Body() dto: CreateLessonInputDto): Promise<CreateLessonResponseDto> {
-        return await this.lessonsService.createLesson(dto);
+        const lesson = await this.lessonsService.createLesson(dto);
+
+        return { id: String(lesson.id), name: lesson.name, code: lesson.code };
     }
 
     @Post(':id/evaluations')
     @ApiOkResponse({ type: CreateEvaluationResponseDto })
     async createEvaluation(@Body() dto: CreateEvaluationInputDto, @Param('id') id: number): Promise<CreateEvaluationResponseDto> {
-        return await this.lessonsService.createEvaluation({ score: +dto.score, userId: +dto.user_id, lessonId: id });
+        const evaluation = await this.lessonsService.createEvaluation({ score: +dto.score, userId: +dto.user_id, lessonId: id });
+
+        return { id: String(evaluation.id), user_id: String(evaluation.user.id), score: String(evaluation.score) };
     }
 
     @ApiOkResponse({ type: GetLessonsResponseDto, isArray: true, status: HttpStatus.OK })
     @Get()
-    async getAllUsers(): Promise<GetLessonsResponseDto[]> {
-        return await this.lessonsService.getAllLessons();
+    async getAllLessons(): Promise<GetLessonsResponseDto[]> {
+        const lessons = await this.lessonsService.getAllLessons();
+        return lessons.map((lesson) => {
+            const newEvaluations = lesson.evaluations.map((evaluation) => {
+                return { id: String(evaluation.id), score: String(evaluation.score), user: evaluation.user };
+            });
+
+            return { ...lesson, id: String(lesson.id), evaluations: newEvaluations };
+        });
     }
 }

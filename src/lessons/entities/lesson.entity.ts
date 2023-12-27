@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Evaluation } from 'src/evaluations/entities/evaluation.entity';
+import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Lesson {
@@ -8,6 +9,9 @@ export class Lesson {
     @Column({ length: 100 })
     name: string;
 
-    @Column({ length: 20 })
+    @Column({ length: 20, unique: true })
     code: string;
+
+    @OneToMany(() => Evaluation, (evaluation) => evaluation.lesson, { eager: true, onDelete: 'CASCADE' })
+    evaluations: Evaluation[];
 }
