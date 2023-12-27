@@ -2,7 +2,6 @@ import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsNumberString, IsString, Length } from 'class-validator';
 import { EApiTags } from 'src/utils/types/api-tags.enum';
 
-@ApiTags(EApiTags.LESSONS)
 export class CreateUserInputDto {
     @ApiProperty({ description: `user's name`, example: `Джонни`, minLength: 1, maxLength: 100 })
     @IsNotEmpty()

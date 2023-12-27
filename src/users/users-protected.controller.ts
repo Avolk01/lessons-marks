@@ -6,15 +6,17 @@ import { EApiTags } from 'src/utils/types/api-tags.enum';
 import { GetUsersResponseDto } from './dto/get-users.response.dto';
 import { CreateUserResponseDto } from './dto/create-user.response.dto';
 import { CreateUserInputDto } from './dto/create-user.input.dto';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 
-@ApiTags(EApiTags.USERS)
+@ApiTags(EApiTags.USERS_PROTECTED)
 @Controller()
-export class UsersController {
+@UseGuards(AuthGuard)
+export class UsersProtectedController {
     constructor(private readonly usersService: UsersService) {}
 
     @ApiOkResponse({ type: GetUsersResponseDto, isArray: true, status: HttpStatus.OK })
-    @Get(ERoutes.GET_USERS)
-    async getAllUsers(): Promise<GetUsersResponseDto[]> {
+    @Get(ERoutes.GET_USERS_PROTECTED)
+    async getAllUsersProtected(): Promise<GetUsersResponseDto[]> {
         const users = await this.usersService.getAllUsers();
 
         return users.map((user) => {
@@ -23,8 +25,8 @@ export class UsersController {
     }
 
     @ApiOkResponse({ type: CreateUserResponseDto, status: HttpStatus.CREATED })
-    @Post(ERoutes.CREATE_USER)
-    async createUser(@Body() dto: CreateUserInputDto): Promise<CreateUserResponseDto> {
+    @Post(ERoutes.CREATE_USER_PROTECTED)
+    async createUserProtected(@Body() dto: CreateUserInputDto): Promise<CreateUserResponseDto> {
         const user = await this.usersService.createUser(dto);
 
         return { ...user, id: String(user.id) };
