@@ -1,7 +1,7 @@
 import { Evaluation } from 'src/evaluations/entities/evaluation.entity';
 import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity({ schema: 'auth' })
 export class Lesson {
     @PrimaryGeneratedColumn()
     id: number;
