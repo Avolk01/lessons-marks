@@ -3,7 +3,6 @@ import { Evaluation } from 'src/evaluations/entities/evaluation.entity';
 import { User } from 'src/users/entities/user.entity';
 import { EApiTags } from 'src/utils/types/api-tags.enum';
 
-@ApiTags(EApiTags.LESSONS)
 export class GetEvaluationResponseDto {
     @ApiProperty({ description: `evaluation's id`, example: 1 })
     id: string;

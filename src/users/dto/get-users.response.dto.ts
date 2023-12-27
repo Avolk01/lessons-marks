@@ -1,7 +1,6 @@
 import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import { EApiTags } from 'src/utils/types/api-tags.enum';
 
-@ApiTags(EApiTags.USERS)
 export class GetUsersResponseDto {
     @ApiProperty({ description: `user's id`, example: `1` })
     id: string;

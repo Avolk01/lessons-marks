@@ -2,7 +2,6 @@ import { ApiProperty, ApiTags } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumberString } from 'class-validator';
 import { EApiTags } from 'src/utils/types/api-tags.enum';
 
-@ApiTags(EApiTags.LESSONS)
 export class CreateEvaluationInputDto {
     @ApiProperty({ description: `evaluation's user id`, example: `1` })
     @IsNotEmpty()
